@@ -5,17 +5,17 @@ import sys
 import pickle
 import traceback
 
+
+def keyCapture():
+    global carryOn
+    input()
+    carryOn = False
+
+
 if __name__ == "__main__":
     reachy = ReachySDK(host="0.0.0.0")
 
     carryOn = True
-
-
-    def keyCapture():
-        global carryOn
-        input()
-        carryOn = False
-
 
     jointToRecord = [
         reachy.r_arm.r_shoulder_pitch,
@@ -59,7 +59,7 @@ if __name__ == "__main__":
                 time.sleep(5)
                 print("The learning process has just started")
                 threading.Thread(target=keyCapture, args=(),
-                                name="keyCapture", daemon=True).start()
+                                 name="keyCapture", daemon=True).start()
                 while carryOn:
                     currentPoint = [
                         joint.present_position for joint in jointToRecord]
